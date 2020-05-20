@@ -6,8 +6,8 @@ from scipy.fftpack import fft, fftshift, ifft
 plt.rcParams['font.sans-serif']=['SimHei']
 plt.rcParams['axes.unicode_minus'] = False
 sampling_freq1, audio1 = wavfile.read('audio\FM.wav')
-print(sampling_freq1)
 audio1=audio1[:,0]
+print(audio1.shape)
 N=len(audio1)
 t=np.arange(0,N,1.000)/sampling_freq1
 fit=plt.figure(figsize=(8,6))
@@ -16,7 +16,7 @@ ax.set_title('女生时域')
 plt.xlabel('time(s)')
 plt.plot(t,audio1)
 
-audio1=fftshift(fft(audio1))
+audio1=fft(audio1)
 f=-sampling_freq1/2+np.arange(0,N,1.0)*sampling_freq1/(N-1)
 ax2=plt.subplot(122)
 ax2.set_title('女生频域')
