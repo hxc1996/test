@@ -71,3 +71,44 @@ tf.math.log(a)
 tf.matmul(a,b)
 a@b
 
+
+#求梯度
+with tf.GradientTape() as tape:
+    w = tf.Variable(tf.constant(3.0))
+    loss = tf.pow(w, 2)
+grad = tape.gradient(loss, w)
+print(grad)
+
+#枚举
+seq = ['one', 'two', 'three']
+for i, element in enumerate(seq):
+    print(i, element)
+
+#独热码
+classes = 3
+labels = tf.constant([1, 0, 2])  # 输入的元素值最小为0，最大为2
+output = tf.one_hot(labels, depth=classes)
+print("result of labels1:", output)
+print("\n")
+
+
+#tf.nn.softmax
+x1 = tf.constant([[5.8, 4.0, 1.2, 0.2]])  # 5.8,4.0,1.2,0.2（0）
+w1 = tf.constant([[-0.8, -0.34, -1.4],
+                  [0.6, 1.3, 0.25],
+                  [0.5, 1.45, 0.9],
+                  [0.65, 0.7, -1.2]])
+b1 = tf.constant([2.52, -3.1, 5.62])
+y = tf.matmul(x1, w1) + b1
+print("x1.shape:", x1.shape)
+print("w1.shape:", w1.shape)
+print("b1.shape:", b1.shape)
+print("y.shape:", y.shape)
+print("y:", y)
+#####以下代码可将输出结果y转化为概率值#####
+y_dim = tf.squeeze(y)  # 去掉y中纬度1（观察y_dim与 y 效果对比）
+y_pro = tf.nn.softmax(y_dim)  # 使y_dim符合概率分布，输出为概率值了
+print("y_dim:", y_dim)
+print("y_pro:", y_pro)
+#请观察打印出的shape
+
